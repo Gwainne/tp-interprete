@@ -127,20 +127,30 @@ public class Interpreter extends MiniLangBaseVisitor<Object> {
         Object right = visit(ctx.expr(1));
         String op = ctx.getChild(1).getText();
 
-        if (op.equals("/")) {
+        if (op.equals("/") || op.equals("%")) {
             double divisor = toDouble(right);
             if (divisor == 0) {
-                throw new SemanticException("División por cero en tiempo de ejecución.",
+                throw new SemanticException("División/módulo por cero en tiempo de ejecución.",
                     ctx.getStart().getLine());
             }
         }
 
         if (left instanceof Double || right instanceof Double) {
             double l = toDouble(left), r = toDouble(right);
-            return op.equals("*") ? l * r : l / r;
+            return switch (op) {
+                case "*" -> l * r;
+                case "/" -> l / r;
+                case "%" -> l % r;
+                default  -> 0;
+            };
         } else {
             int l = (Integer) left, r = (Integer) right;
-            return op.equals("*") ? l * r : l / r;
+            return switch (op) {
+                case "*" -> l * r;
+                case "/" -> l / r;
+                case "%" -> l % r;
+                default  -> 0;
+            };
         }
     }
 

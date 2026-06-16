@@ -140,10 +140,10 @@ public class SemanticAnalyzer extends MiniLangBaseVisitor<String> {
         checkNumeric(left, line);
         checkNumeric(right, line);
 
-        if (ctx.getChild(1).getText().equals("/")) {
+        if (ctx.getChild(1).getText().equals("/") || ctx.getChild(1).getText().equals("%")) {
             String rightText = ctx.expr(1).getText();
             if (rightText.equals("0") || rightText.equals("0.0")) {
-                throw new SemanticException("División por cero detectada.", line);
+                throw new SemanticException("División/módulo por cero detectada.", line);
             }
         }
 

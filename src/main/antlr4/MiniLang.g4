@@ -51,7 +51,7 @@ repeatStmt
 // ── Expresiones con precedencia de mayor a menor ──────
 expr
     : '!' expr                                          # Not
-    | expr ('*' | '/') expr                             # MulDiv
+    | expr ('*' | '/' | '%') expr                       # MulDiv
     | expr ('+' | '-') expr                             # AddSub
     | expr ('<' | '>' | '<=' | '>=') expr              # Relational
     | expr ('==' | '!=') expr                           # Equality
