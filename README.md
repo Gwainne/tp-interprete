@@ -3,7 +3,6 @@
 **Trabajo Práctico Cuatrimestral**  
 Conceptos y Paradigmas de Lenguajes de Programación — 2026  
 Universidad Nacional de Lanús
-Grupo AC
 
 ---
 
@@ -61,12 +60,12 @@ int x = 10; // También al final de una línea
 
 | Categoría | Operadores |
 |-----------|------------|
-| Aritméticos | `+`, `-`, `*`, `/` |
+| Aritméticos | `+`, `-`, `*`, `/`, `%` |
 | Relacionales | `<`, `>`, `<=`, `>=` |
 | Igualdad | `==`, `!=` |
 | Lógicos | `&&`, `\|\|`, `!` |
 
-El operador `+` también soporta concatenación de strings.
+El operador `+` también soporta concatenación de strings. El operador `%` calcula el resto de la división entera.
 
 ### Instrucción de salida
 
@@ -136,7 +135,9 @@ tp-interprete/
 │   ├── hola.ml
 │   ├── condicional.ml
 │   ├── repeat.ml
-│   └── completo.ml
+│   ├── completo.ml
+│   ├── fizzbuzz.ml
+│   └── error.ml
 └── src/
     └── main/
         ├── antlr4/
@@ -289,6 +290,72 @@ Precio final:
 
 ---
 
+### fizzbuzz.ml — Operador módulo y condicionales anidados
+
+```
+// FizzBuzz del 1 al 20 usando repeat-until y módulo
+int i = 1;
+
+repeat {
+    if (i % 15 == 0) {
+        print("FizzBuzz");
+    } else {
+        if (i % 3 == 0) {
+            print("Fizz");
+        } else {
+            if (i % 5 == 0) {
+                print("Buzz");
+            } else {
+                print(i);
+            }
+        }
+    }
+
+    i = i + 1;
+} until (i > 20);
+```
+
+**Salida:**
+```
+1
+2
+Fizz
+4
+Buzz
+Fizz
+7
+8
+Fizz
+Buzz
+11
+Fizz
+13
+14
+FizzBuzz
+16
+17
+Fizz
+19
+Buzz
+```
+
+---
+
+### error.ml — Detección de error semántico
+
+```
+// Demuestra que el intérprete detecta variables no declaradas
+int x = 5;
+print(y);
+```
+
+**Salida:**
+```
+[Error semántico - línea 3] Variable 'y' no fue declarada.
+```
+
+---
+
 ## Errores detectados
 
 El intérprete detecta y reporta los siguientes errores:
@@ -300,4 +367,5 @@ El intérprete detecta y reporta los siguientes errores:
 | Tipos incompatibles | `int x = "hola";` |
 | Operación inválida | `int x = true + 1;` |
 | División por cero | `int x = 5 / 0;` |
+| Módulo por cero | `int x = 5 % 0;` |
 | Condición no booleana | `if (42) { ... }` |
